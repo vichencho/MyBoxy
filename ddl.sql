@@ -1,0 +1,100 @@
+CREATE TABLE User (
+  id NUMBER PRIMARY KEY,
+  User VARCHAR2(100),
+  Role_id NUMBER,
+  CONSTRAINT fk_User_Role FOREIGN KEY (Role_id) REFERENCES Role (id)
+);
+
+CREATE TABLE Role (
+  id NUMBER PRIMARY KEY,
+  Role VARCHAR2(100),
+);
+
+CREATE TABLE File (
+  id NUMBER PRIMARY KEY,
+  File VARCHAR2(100),
+  User_id NUMBER,
+  FileFormat_id NUMBER,
+  CONSTRAINT fk_File_User FOREIGN KEY (User_id) REFERENCES User (id),
+  CONSTRAINT fk_File_FileFormat FOREIGN KEY (FileFormat_id) REFERENCES FileFormat (id)
+);
+
+CREATE TABLE FileFormat (
+  id NUMBER PRIMARY KEY,
+  FileFormat VARCHAR2(100),
+);
+
+CREATE TABLE Group (
+  id NUMBER PRIMARY KEY,
+  Group VARCHAR2(100),
+  User_id NUMBER,
+  GroupType_id NUMBER,
+  CONSTRAINT fk_Group_User FOREIGN KEY (User_id) REFERENCES User (id),
+  CONSTRAINT fk_Group_GroupType FOREIGN KEY (GroupType_id) REFERENCES GroupType (id)
+);
+
+CREATE TABLE GroupType (
+  id NUMBER PRIMARY KEY,
+  GroupType VARCHAR2(100),
+);
+
+
+
+
+CREATE SEQUENCE seq_User MINVALUE 1 START WITH 1;
+CREATE SEQUENCE seq_Role MINVALUE 1 START WITH 1;
+CREATE SEQUENCE seq_File MINVALUE 1 START WITH 1;
+CREATE SEQUENCE seq_FileFormat MINVALUE 1 START WITH 1;
+CREATE SEQUENCE seq_Group MINVALUE 1 START WITH 1;
+CREATE SEQUENCE seq_GroupType MINVALUE 1 START WITH 1;
+
+
+
+
+CREATE OR REPLACE TRIGGER user_id_seq
+  BEFORE INSERT ON User
+  FOR EACH ROW
+BEGIN
+  SELECT user_id_seq.NEXTVAL INTO :new.id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER role_id_seq
+  BEFORE INSERT ON Role
+  FOR EACH ROW
+BEGIN
+  SELECT role_id_seq.NEXTVAL INTO :new.id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER file_id_seq
+  BEFORE INSERT ON File
+  FOR EACH ROW
+BEGIN
+  SELECT file_id_seq.NEXTVAL INTO :new.id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER fileformat_id_seq
+  BEFORE INSERT ON FileFormat
+  FOR EACH ROW
+BEGIN
+  SELECT fileformat_id_seq.NEXTVAL INTO :new.id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER group_id_seq
+  BEFORE INSERT ON Group
+  FOR EACH ROW
+BEGIN
+  SELECT group_id_seq.NEXTVAL INTO :new.id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER grouptype_id_seq
+  BEFORE INSERT ON GroupType
+  FOR EACH ROW
+BEGIN
+  SELECT grouptype_id_seq.NEXTVAL INTO :new.id FROM dual;
+END;
+/
