@@ -1,2 +1,3 @@
 # MyBoxy
-Application on Oracle APEX that serve as a repository of any type of document
+## Proyect Purpose
+	Build an application that serves as a dynamic repository that can be configured by the user owner so they can upload, publish, privatize, group and maintain different types of documents.
